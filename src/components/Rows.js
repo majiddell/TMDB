@@ -110,7 +110,7 @@ function Rows() {
                           id={res.id}
                           score={res.vote_average}
                           name={getName(res, res.media_type)}
-                          overview={res.overview}
+                          overview=""
                           type={res.media_type}
                         ></Item>
                       </div>

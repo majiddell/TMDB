@@ -11,7 +11,7 @@ import { Route, Switch } from "react-router-dom";
 import Movie from "./pages/Movie";
 import TV from "./pages/TV";
 import Person from "./pages/Person";
-
+import Genre from "./pages/Genre";
 function App() {
   return (
     <div className="App">
@@ -33,6 +33,10 @@ function App() {
 
           <Route path="/person/:id" exact>
             <Person />
+          </Route>
+
+          <Route path="/genre/:id" exact>
+            <Genre />
           </Route>
         </Switch>
       </header>

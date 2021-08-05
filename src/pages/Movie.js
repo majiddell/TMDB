@@ -18,7 +18,7 @@ import { Link } from "react-router-dom";
 import FetchPersonDetail from "../actions/personDetailAction";
 import { StyledRow } from "../components/Row";
 import FetchMovieDetail from "../actions/movieDetailAction";
-
+import FetchGenre from "../actions/genreAction";
 import { fastFadeIn } from "../animations";
 
 import user from "../icons/user.svg";
@@ -49,6 +49,8 @@ function Movie() {
     if (type === "movie") dispatch(FetchMovieDetail(id));
     if (type === "tv") dispatch(FetchtvDetail(id));
     if (type === "person") dispatch(FetchPersonDetail(id));
+    if (type === "genre") dispatch(FetchGenre(id, 1, 1));
+    console.log("dispatched");
   }
 
   return (
@@ -63,7 +65,9 @@ function Movie() {
           <StyledMovie className="container">
             <div className="row">
               <div className="name">
-                <h1 className="col-2">{detail.title}</h1>
+                <h1 className="col-2" style={{ color: "#9c0000" }}>
+                  {detail.title}
+                </h1>
                 <h1 className="score">{`${detail.vote_average}/10`}</h1>
                 <h3 className="score">{`${detail.vote_count} votes`}</h3>
               </div>
@@ -89,7 +93,7 @@ function Movie() {
               <Link
                 key={`${item.id}${item.character}`}
                 style={{ textDecoration: "none" }}
-                to={`/${"person"}/${item.id}`}
+                to={`/person/${item.id}`}
                 onClick={() => openPage("person", item.id)}
               >
                 {item.profile_path && (
@@ -115,13 +119,13 @@ function Movie() {
 
           <StyledDetail className="container">
             <h2>Genres</h2>
-            <div className="row">
+            <div className="row buttons">
               {detail.genres.map((genre) => (
-                <div key={genre.id} className="col-3 col-6-sm">
-                  <h2 key={genre.id} className="col">
-                    {genre.name}
-                  </h2>
-                </div>
+                <button onClick={() => openPage("genre", genre.id)} id="button">
+                  <Link to={`/genre/${genre.id}`}>
+                    <h2>{genre.name}</h2>
+                  </Link>
+                </button>
               ))}
             </div>
 
@@ -380,7 +384,6 @@ export const StyledItem = styled(motion.div)`
 export const StyledDetail = styled(motion.div)`
   display: flex;
   flex-direction: column;
-
   .row {
     display: flex;
     flex-direction: row;
@@ -392,6 +395,29 @@ export const StyledDetail = styled(motion.div)`
 
   h2 {
     color: gray;
+  }
+
+  .buttons {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+
+    #button {
+      width: fit-content;
+      margin: 0.5vw 1.5vw;
+      background-color: transparent;
+      border: 1px solid gray;
+      border-radius: 10px;
+      padding: 0.3vw 1vw;
+
+      a {
+        text-decoration: none;
+      }
+      :hover {
+        background-color: #444444;
+      }
+    }
   }
 `;
 
